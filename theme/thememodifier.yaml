@@ -1,0 +1,19 @@
+Constants:
+- Colours
+- GlyphBrush: 'Accent'
+- TextBrush: 'Text'
+- TextBrushDarker: 'Text, muted'
+- ButtonBackgroundBrush: 'Surface, raised (inputs and buttons)'
+- NormalBrushDark: 'Surface, panels (sidebar and top bar)'
+- General
+- LayluPerformanceMode: 'Performance mode (no glow, no rounded covers, no trailer background)'
+- LayluReduceMotion: 'Reduce motion (top bar appears without sliding)'
+- LayluTopBarAutoHide: 'Hide the top bar until the pointer reaches the top edge'
+- Grid
+- LayluRoundedCovers: 'Rounded cover corners (turn off for faster scrolling)'
+- LayluCardPlayButton: 'Play button on the hovered cover'
+- LayluCardGlow: 'Glow around the hovered, selected and running cover'
+- LayluCardFavouriteMark: 'Star on favourite covers'
+- Details
+- LayluUseLogo: 'Use the game logo as the title when one exists'
+- LayluTrailerFade: 'Dim the title strip and logo while the trailer plays'
