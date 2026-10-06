@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Laylu logo">
+  <circle cx="256" cy="256" r="200" fill="#141416"/>
+  <g transform="rotate(45 256 256)">
+    <circle cx="256" cy="256" r="184" fill="#E8E4DC"/>
+    <path d="M256,72 A184,184 0 0 1 256,440 A92,92 0 0 1 256,256 A92,92 0 0 0 256,72 Z" fill="#141416"/>
+    <circle cx="256" cy="256" r="179" fill="none" stroke="#E8E4DC" stroke-width="10"/>
+    <path d="M256,58 L256,72 A92,92 0 0 1 256,256 A92,92 0 0 0 256,440 L256,454" fill="none" stroke="#141416" stroke-width="18"/>
+  </g>
+  <path d="M304,161 L304,221 L356,191 Z" fill="#E23B4E"/>
+  <circle cx="191" cy="321" r="26" fill="#8E4EE0"/>
+</svg>
