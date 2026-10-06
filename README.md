@@ -8,7 +8,7 @@ A dark, cinematic Desktop theme for [Playnite](https://playnite.link). Covers on
 
 ## Install
 
-1. Download `Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239_1_0.pthm` from the [latest release](https://github.com/Kyerstorm/Playnite-Laylu-Theme/releases/latest).
+1. Download the `.pthm` file from the [latest release](https://github.com/Kyerstorm/Playnite-Laylu-Theme/releases/latest).
 2. Open it (double-click), or drag it onto the Playnite window.
 3. In Playnite: Settings → Appearance → General → Theme → **Laylu**, then restart Playnite.
 
@@ -89,11 +89,13 @@ Turn on **Performance mode**. Rounded covers and the glow are the two costly eff
 
 ## Building the package
 
-From the repository root, with Playnite's Toolbox:
+With Playnite's Toolbox, giving the theme folder as a full path:
 
 ```
-Toolbox.exe pack theme dist
+Toolbox.exe pack "C:\full\path\to\Laylu\theme" "C:\full\path\to\Laylu\dist"
 ```
+
+The path has to be absolute. Toolbox removes the folder argument from every file name, so a relative `theme` also turns `thememodifier.yaml` into `modifier.yaml` and ThemeModifier stops finding the settings.
 
 Toolbox leaves out every file that is identical to Playnite's default theme, so the package holds only what Laylu changes.
 

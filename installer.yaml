@@ -1,0 +1,9 @@
+AddonId: Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239
+Packages:
+  - Version: 1.0.1
+    RequiredApiVersion: 2.10.0
+    ReleaseDate: 2026-10-07
+    PackageUrl: https://github.com/Kyerstorm/Playnite-Laylu-Theme/releases/download/v1.0.1/Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239_1_0_1.pthm
+    Changelog:
+      - New Laylu logo for the window and tray icons
+      - Fixed the package so ThemeModifier finds the theme settings

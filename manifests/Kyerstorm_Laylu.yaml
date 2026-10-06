@@ -1,0 +1,17 @@
+AddonId: Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239
+Type: ThemeDesktop
+InstallerManifestUrl: https://raw.githubusercontent.com/Kyerstorm/Playnite-Laylu-Theme/main/installer.yaml
+ShortDescription: A dark, cinematic Desktop theme.
+Description: Covers on a black grid, a slim sidebar, a top bar that stays out of the way, and a details page with the trailer as its background. Works with no extensions installed; optional integrations with ThemeModifier, Extra Metadata Loader, ThemeExtras and others.
+Name: Laylu
+Author: Kyerstorm
+Tags: ["Theme", "Desktop", "Dark", "Cinematic"]
+SourceUrl: https://github.com/Kyerstorm/Playnite-Laylu-Theme
+IconUrl: https://raw.githubusercontent.com/Kyerstorm/Playnite-Laylu-Theme/main/logo/laylu-logo-256.png
+Links:
+  GitHub: https://github.com/Kyerstorm/Playnite-Laylu-Theme
+Screenshots:
+  - Thumbnail: https://raw.githubusercontent.com/Kyerstorm/Playnite-Laylu-Theme/main/screenshots/grid_thumb.jpg
+    Image: https://raw.githubusercontent.com/Kyerstorm/Playnite-Laylu-Theme/main/screenshots/grid.jpg
+  - Thumbnail: https://raw.githubusercontent.com/Kyerstorm/Playnite-Laylu-Theme/main/screenshots/details_thumb.jpg
+    Image: https://raw.githubusercontent.com/Kyerstorm/Playnite-Laylu-Theme/main/screenshots/details.jpg
