@@ -1,5 +1,8 @@
 # Laylu
 
+> [!NOTE]
+> **AI disclaimer:** I built this theme while learning XAML (WPF). AI assistance was used only to verify files and to help develop ideas.
+
 A dark, cinematic Desktop theme for [Playnite](https://playnite.link). Covers on a black grid, a slim sidebar, a top bar that stays out of the way, and a details page with the trailer as its background.
 
 - Playnite 10, Desktop mode, Theme API 2.10.0
