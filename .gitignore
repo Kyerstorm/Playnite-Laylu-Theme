@@ -1,2 +1,6 @@
 # Built packages; they are attached to GitHub releases instead
 dist/
+
+# Build output from opening theme/Theme.csproj
+theme/obj/
+theme/bin/

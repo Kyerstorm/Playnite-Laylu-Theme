@@ -2,13 +2,23 @@
 
 The newest numbered entry must match `Version` in `theme/theme.yaml`; `tools/check.ps1` enforces it.
 
-## Unreleased
+## 1.1
 
-- New sidebar button that clears all filters, shown only while a filter is active
-- The glow around covers now follows the Accent setting; it used to stay off-white
+Released 2026-10-13.
+
+### Added
+
+- Sidebar button that clears all filters and the active filter preset. It appears only while a filter is active
 - Three accent presets documented in the README: Ember, Aurora and Orchid
-- Fixed the top bar disappearing for good when Reduce motion is switched on while Playnite is running. It came back only after a restart
+
+### Changed
+
 - Reduce motion now also covers the trailer fade: the title strip and logo dim and return without fading
+- The glow around covers follows the Accent setting; it used to stay off-white
+
+### Fixed
+
+- The top bar disappeared for good when Reduce motion was switched on while Playnite was running, and came back only after a restart
 
 ## 1.0.1
 

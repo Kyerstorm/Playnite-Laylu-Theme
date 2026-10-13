@@ -1,5 +1,14 @@
 AddonId: Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239
 Packages:
+  - Version: 1.1
+    RequiredApiVersion: 2.10.0
+    ReleaseDate: 2026-10-13
+    PackageUrl: https://github.com/Kyerstorm/Playnite-Laylu-Theme/releases/download/v1.1/Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239_1_1.pthm
+    Changelog:
+      - New sidebar button that clears all filters, shown only while a filter is active
+      - Reduce motion now also covers the trailer fade
+      - The glow around covers now follows the Accent setting
+      - Fixed the top bar disappearing until restart when Reduce motion is switched on while Playnite is running
   - Version: 1.0.1
     RequiredApiVersion: 2.10.0
     ReleaseDate: 2026-10-07
