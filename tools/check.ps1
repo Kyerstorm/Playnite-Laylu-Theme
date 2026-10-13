@@ -55,7 +55,7 @@ $packageVersion = Get-Field 'installer.yaml' '^\s*-\s*Version:\s*(\S+)' 'package
 $packageUrl = Get-Field 'installer.yaml' '^\s*PackageUrl:\s*(\S+)' 'PackageUrl'
 $installerId = Get-Field 'installer.yaml' '^AddonId:\s*(\S+)' 'AddonId'
 $manifestId = Get-Field 'manifests\Kyerstorm_Laylu.yaml' '^AddonId:\s*(\S+)' 'AddonId'
-$changelogVersion = Get-Field 'CHANGELOG.md' '^## (\S+)' 'version heading'
+$changelogVersion = Get-Field 'CHANGELOG.md' '^## (\d\S*)' 'version heading'
 
 if ($version -and $id) {
     if ($packageVersion -ne $version) {
