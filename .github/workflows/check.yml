@@ -1,0 +1,15 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: XAML, generated grid page, versions
+        shell: pwsh
+        run: ./tools/check.ps1
