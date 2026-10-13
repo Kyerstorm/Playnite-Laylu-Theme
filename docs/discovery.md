@@ -80,7 +80,7 @@ Discovery closed 2026-10-05. The agreed design is in `specification.md`. This fi
 | D-046 | 2026-10-05 | Visible without scrolling: play button, playtime, time to beat, ratings, links | Phase 5, Q5 |
 | D-047 | 2026-10-05 | Uniform stats strip from raw values where available; extension controls elsewhere | Phase 5, Q6 |
 | D-048 | 2026-10-05 | Page body is tabs, with collapsible sections inside tabs | Phase 5, Q7 |
-| D-049 | 2026-10-05 | Genres, tags, categories, features: Metadata Utilities controls when installed, native fields otherwise | Phase 5, Q8. Doubles the work for those fields |
+| D-049 | 2026-10-05 | Genres, tags, categories, features: native fields | Phase 5, Q8 |
 | D-050 | 2026-10-05 | Demoted to a "more" section: tags, features, series, age rating, region, source, version, install folder | Phase 5, Q9 |
 | D-051 | 2026-10-05 | Description collapsed with "show more"; links as an icon bar; screenshots in a Media tab; no extension button row | Phase 5, Q10, Q12, Q14, Q15 |
 | D-052 | 2026-10-05 | In-place editing of favourite, completion status and user rating | Phase 5, Q11. ThemeExtras; hidden when absent |
@@ -126,7 +126,7 @@ Discovery closed 2026-10-05. The agreed design is in `specification.md`. This fi
 | D-092 | 2026-10-05 | Grid details panel: fields (and "More") in a 290-unit left column, description on the right; links drawn as chips; lists wrap sideways; the panel's width stays Playnite's own setting (confirms D-080); score text parts replaced by /10 text | Build phase 4. User, check rounds 1 to 3 |
 | D-093 | 2026-10-05 | Build phase 4 (grid details panel) accepted. The artwork band shows the whole background image at panel width (not cropped), dimmed along its lower edge for the title; link chips are centred; the description shows up to 640 units before "Show more" | User, check rounds 4 and 5 |
 | D-094 | 2026-10-05 | Details view page: hero is at least 340 units tall above the header strip (Playnite's indentation setting can only add to it); page content sits flush against the game list, capped at 1500 units; tabs so far are Overview and Notes; list rows show a favourite star and a not-installed icon; shared styles live in `Common.xaml` because a static reference cannot see a theme file loaded later | Build phase 5. User, check rounds 1 to 3; the crash on first load was the cross-file reference |
-| D-095 | 2026-10-05 | Phase 6 (extension integration): on the Details page the trailer plays muted as the hero behind the header band (`ExtraMetadataLoader_VideoLoaderControl_NoControls_NoSound`, scaled to fill), replacing the artwork while a video exists, with play and pause in the corner; it is no longer in the Media tab. Links show site icons through `ThemeExtras_Links` with the shared `LayluLinkChipTemplate` in Common.xaml; the plain `PART_ItemsLinks` chips remain as the fallback when ThemeExtras is not installed. Metadata Utilities fields were not chosen. | User answer "1 and 2" |
+| D-095 | 2026-10-05 | Phase 6 (extension integration): on the Details page the trailer plays muted as the hero behind the header band (`ExtraMetadataLoader_VideoLoaderControl_NoControls_NoSound`, scaled to fill), replacing the artwork while a video exists, with play and pause in the corner; it is no longer in the Media tab. Links show site icons through `ThemeExtras_Links` with the shared `LayluLinkChipTemplate` in Common.xaml; the plain `PART_ItemsLinks` chips remain as the fallback when ThemeExtras is not installed. | User answer "1 and 2" |
 | D-096 | 2026-10-05 | Phase 6 accepted. With a trailer the hero row is at least 68% of the visible page height (user: "i think thats perfect"); without one it stays at least 340. The trailer and the sizing element sit in Canvases so the video's own height cannot stretch the band. | User answers and screenshots |
 | D-097 | 2026-10-05 | Phase 7 (Details page): tabs News (`NewsViewer_NewsViewerControl`, flag `ReviewsAvailable`), Reviews (`ReviewViewer_ReviewsControl`, `IsControlVisible`), DLC (`CheckDlc_PluginListDlcAll/Owned/NotOwned`, `HasData`), Related (four `GameRelations_*Control`, `*ControlSettings.IsVisible`); Notes tab also hosts `PlayNotes_NotesViewerControl`; stats strip gains "Playing Now" (`NewsViewer_PlayersInGameViewerControl`, `PlayersCountAvailable`). Tab headers are plain English. The three CheckDlc list names come from two reference themes; only `PluginListDlc` was found in the DLL. | Installed DLL strings; FusionX and Apocrypha themes |
 | D-098 | 2026-10-05 | Phase 7 accepted. The short News article area is News Viewer's own setting ("Maximum height of news notes", `DescriptionMaxHeight`), not the theme's. | User answers and screenshots; extension's `en_US.xaml` |
@@ -199,7 +199,6 @@ Classification is **Not yet verified** for every row. "Survey" means themes in t
 | ImageRotater | 1.3.0 | `ImageRotater.72b7d457-0621-429b-8368-665bc53ff896` | `ImageRotater_` | 3 |
 | PlayerActivities | 1.1.1 | `playnite-playeractivities-plugin` | `PlayerActivities_` | 2 |
 | Screenshot Utilities | 0.9.1 | `ScreenshotUtilities_485d682f-73e9-4d54-b16f-b8dd49e88f90` | `ScreenshotUtilities_` | 1 |
-| Metadata Utilities | 1.9.0 | `MetadataUtilities_485ab5f0-bfb1-4c17-93cc-20d8338673be` | `MetadataUtilities_` | 1 |
 | Playnite Sounds Mod | 5.8.3 | `Playnite.Sounds.Mod.baf1744c-72f6-4bc1-92cc-474403b279fb` | `Sounds_` | 1 |
 | Theme Options | 0.32 | `ThemeOptions_904cbf3b-573f-48f8-9642-0a09d05c64ef` | none (swaps files) | 1 |
 
@@ -223,7 +222,6 @@ All classified **Not yet verified** until each is built and tested against the i
 | ThemeModifier | Theme settings and recolouring | P0 |
 | ThemeExtras | Favourite, completion status dropdown, user rating, link icons | P1 |
 | HowLongToBeat | Stats strip (main story); full breakdown in Activity tab | P1 |
-| Metadata Utilities | Genre, tag, category, feature fields when installed; native fields otherwise | P1 |
 | Playnite Achievements | Stats strip (unlocked/total); Achievements tab | P1 |
 | GameActivity | Activity tab | P1 |
 | Screenshot Utilities | Media tab | P1 |

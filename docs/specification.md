@@ -1,6 +1,6 @@
 # Laylu: theme specification
 
-> Historical record from before the 1.0 release. It is not kept up to date: the README describes the theme as shipped, and `CHANGELOG.md` what changed since. Known differences: ImageRotater is supported, Metadata Utilities is not, `thememodifier.yaml` exists, and this file and `discovery.md` now live in `docs\`.
+> Historical record from before the 1.0 release. It is not kept up to date: the README describes the theme as shipped, and `CHANGELOG.md` what changed since. Known differences: ImageRotater is supported, `thememodifier.yaml` exists, and this file and `discovery.md` now live in `docs\`.
 
 Version 0.1 of the specification, 2026-10-05. Decision history and evidence are in `discovery.md`; decision numbers (D-nnn) refer to it.
 
@@ -94,7 +94,7 @@ Priorities: P0 essential, P1 first release, P2 enhancement, P3 later.
 | F-18 | Stats strip | Playtime, time to beat, ratings, achievements (unlocked/total), players online | P1 | Native; HowLongToBeat; Playnite Achievements; Steam News and Players Viewer | Each cell hides when its source is missing; strip closes up |
 | F-19 | Ratings out of 10 | Scores shown as a number out of 10; falls back to out of 100 | P1 | **Verified** `MathConverter` exists; its parameter syntax is **Unverified** | One format used consistently |
 | F-20 | Details tabs | Overview, Media, Achievements, Activity, DLC, Related, News, Reviews, Notes; collapsible sections inside; a tab with nothing to show is hidden | P1 | Extensions in section C | No tab opens onto an empty panel |
-| F-21 | Metadata fields | Metadata Utilities controls when installed, native fields otherwise. Tags, features, series, age rating, region, source, version, install folder sit in a "more" section | P1 | Metadata Utilities optional | Fields render with and without the extension |
+| F-21 | Metadata fields | Native fields. Tags, features, series, age rating, region, source, version, install folder sit in a "more" section | P1 | none | Fields render for a game with full metadata and one with almost none |
 | F-22 | Description | Collapsed to a few lines with "show more" | P1 | none | Long descriptions do not push the tabs off screen |
 | F-23 | In-place editing | Favourite, completion status, user rating | P1 | ThemeExtras | Controls absent, not broken, without ThemeExtras |
 | F-24 | Link bar | Icons under the action row | P1 | ThemeExtras for icons; native links otherwise | Links open |
@@ -124,7 +124,6 @@ Every row is **Not yet verified** against the installed version until it is buil
 | Playnite Achievements 4.0.1 | Stats strip, Achievements tab | `ModernTheme.UnlockedCount`, `ModernTheme.AchievementCount`, list and stats controls | `PlayniteAchievements` | Reference: Dune Rev |
 | GameActivity 3.6 | Activity tab | `HasData`, chart controls | `playnite-gameactivity-plugin` | Reference: three themes |
 | Screenshot Utilities 0.9.1 | Media tab | Viewer control, `IsViewerControlVisible` | `ScreenshotUtilities_485d682f-73e9-4d54-b16f-b8dd49e88f90` | Reference: Apocrypha only |
-| Metadata Utilities 1.9.0 | Metadata fields | Prefix item controls | `MetadataUtilities_485ab5f0-bfb1-4c17-93cc-20d8338673be` | Reference: Apocrypha |
 | Steam News and Players Viewer 1.39 | Stats strip, News tab | Players control, news control. No raw player count found | `NewsViewer_15e03ffe-90f6-4e8e-bd4d-94514777481d` | Reference: only `ReviewsAvailable` is read as a value |
 | Steam Reviews Viewer 2.60 | Reviews tab | Reviews control, `IsControlVisible` | `Review_Viewer_ca24e37a-76d9-49bf-89ab-d3cba4a54bd1` | Reference: Apocrypha, Harmony |
 | CheckDlc 1.4.1 | DLC tab | `HasData`, list controls | `playnite-checkdlc-plugin` | Reference: three themes |
@@ -277,7 +276,7 @@ Each phase ends with screenshots from the author (D-074) and a check of `playnit
 | 3 | Grid | Cards, states, play button, group headers, missing cover | F-06 to F-08, F-10, F-11 | Scroll performance with rounding and glow |
 | 4 | Grid details panel | Condensed page with native data only | F-12, F-21 (native), F-22 | Forcing the panel open |
 | 5 | Cinematic page | Hero, title, action row, native stats, tabs with Overview | F-14, F-13, F-20 (structure) | Layout with almost no metadata |
-| 6 | Extensions, P0 and P1 | Extra Metadata Loader, ThemeExtras, HowLongToBeat, Playnite Achievements, GameActivity, Screenshot Utilities, Metadata Utilities | F-15 to F-19, F-21, F-23, F-24; each tested with the extension disabled | A value name no longer exists in the installed version |
+| 6 | Extensions, P0 and P1 | Extra Metadata Loader, ThemeExtras, HowLongToBeat, Playnite Achievements, GameActivity, Screenshot Utilities | F-15 to F-19, F-21, F-23, F-24; each tested with the extension disabled | A value name no longer exists in the installed version |
 | 7 | Extensions, P2 | News, Reviews, DLC, Related, Notes tabs; players online | F-18 complete, F-20 complete | Extension controls clashing with the palette |
 | 8 | Remaining views | Filter panel, Explorer, List view, search, notifications, settings and other dialogs | F-25, F-28, F-29 | Volume of small controls |
 | 9 | Settings and modes | All of section E; reduce motion; performance mode; optional card extras | F-09, F-30, F-31 | Combinations of switches |

@@ -4,6 +4,9 @@ The newest numbered entry must match `Version` in `theme/theme.yaml`; `tools/che
 
 ## Unreleased
 
+- New sidebar button that clears all filters, shown only while a filter is active
+- The glow around covers now follows the Accent setting; it used to stay off-white
+- Three accent presets documented in the README: Ember, Aurora and Orchid
 - Fixed the top bar disappearing for good when Reduce motion is switched on while Playnite is running. It came back only after a restart
 - Reduce motion now also covers the trailer fade: the title strip and logo dim and return without fading
 

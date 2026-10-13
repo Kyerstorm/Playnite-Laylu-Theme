@@ -28,7 +28,7 @@ The theme works with no extensions installed. Everything that depends on an exte
 
 ## What it looks like
 
-- **Sidebar**: a 56-unit rail. Extension items at the top; notifications, filter, and the Grid / Details / List switch at the bottom.
+- **Sidebar**: a 56-unit rail. Extension items at the top; notifications, filter, and the Grid / Details / List switch at the bottom. While a filter is active the filter button carries a dot and a "clear filters" button appears under it.
 - **Top bar**: hidden until the pointer reaches the top edge, or pinned. The library moves down while it is open.
 - **Grid view**: covers only, rounded, with a glow on the hovered, selected and running game, and a play button on hover. A details panel sits beside the grid.
 - **Details view**: a game list on the left and a full page on the right: trailer or artwork at the top, a strip with Play and the stats, then cover, fields, links and tabs.
@@ -96,6 +96,19 @@ Three things follow Playnite's own settings instead of a theme setting: names un
 | Positive | `#5FB37A` |
 | Mixed, favourite star | `#D9A441` |
 | Negative, warning | `#D9655B` |
+
+### Accent presets
+
+Laylu has no hue of its own by default: the accent is the text colour. For a coloured accent, set **Colours → Accent** in ThemeModifier to one of these, or to any colour you like.
+
+| Preset | Accent |
+|---|---|
+| Default | `#E8E4DC` |
+| Ember | `#E0A040` |
+| Aurora | `#3CC8C0` |
+| Orchid | `#B48CF0` |
+
+The accent colours the icons, the bar beside the selected sidebar item, the Play button and the glow around covers. Text keeps its own colour. Links inside a game's description stay the default colour, and so does the glow if the accent is set to a gradient.
 
 ## Notes for slower machines
 

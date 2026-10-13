@@ -29,21 +29,26 @@
                                   Height="{Settings GridItemHeight}">
                                 <!-- Only the shadow of this black shape is seen. The effect is on a flat
                                      rectangle, not on the cover, and exists only while the card is hovered,
-                                     selected or running -->
+                                     selected or running.
+                                     The glow takes its colour from the accent brush, carried on BorderBrush (the
+                                     border has no thickness, so it is not drawn): the Accent setting replaces that
+                                     brush, not GlyphColor. A gradient accent has no single colour and falls back -->
                                 <Border x:Name="Glow" Style="{StaticResource LayluCardShape}"
-                                        Background="Black" Visibility="Collapsed">
+                                        Background="Black" Visibility="Collapsed"
+                                        BorderBrush="{DynamicResource GlyphBrush}">
                                     <Border.Effect>
                                         <DropShadowEffect BlurRadius="18" ShadowDepth="0" Opacity="0.6"
-                                                          Color="{DynamicResource GlyphColor}" />
+                                                          Color="{Binding BorderBrush.Color, ElementName=Glow, FallbackValue={StaticResource GlyphColor}}" />
                                     </Border.Effect>
                                 </Border>
 
                                 <!-- Running: a wider, stronger glow than hover or selection -->
                                 <Border x:Name="RunningGlow" Style="{StaticResource LayluCardShape}"
-                                        Background="Black" Visibility="Collapsed">
+                                        Background="Black" Visibility="Collapsed"
+                                        BorderBrush="{DynamicResource GlyphBrush}">
                                     <Border.Effect>
                                         <DropShadowEffect BlurRadius="30" ShadowDepth="0" Opacity="1"
-                                                          Color="{DynamicResource GlyphColor}" />
+                                                          Color="{Binding BorderBrush.Color, ElementName=RunningGlow, FallbackValue={StaticResource GlyphColor}}" />
                                     </Border.Effect>
                                 </Border>
 
