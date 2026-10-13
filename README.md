@@ -1,5 +1,10 @@
 # Laylu
 
+[![Downloads](https://img.shields.io/github/downloads/Kyerstorm/Playnite-Laylu-Theme/total?label=downloads)](https://github.com/Kyerstorm/Playnite-Laylu-Theme/releases)
+[![Release](https://img.shields.io/github/release-date/Kyerstorm/Playnite-Laylu-Theme?label=release)](https://github.com/Kyerstorm/Playnite-Laylu-Theme/releases/latest)
+[![Last commit](https://img.shields.io/github/last-commit/Kyerstorm/Playnite-Laylu-Theme?label=last%20commit)](https://github.com/Kyerstorm/Playnite-Laylu-Theme/commits/main)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 > [!NOTE]
 > **AI disclaimer:** I built this theme while learning XAML (WPF). AI assistance was used only to verify files/external plugin support and to help develop ideas.
 
@@ -8,6 +13,10 @@ A dark, cinematic Desktop theme for [Playnite](https://playnite.link). Covers on
 - Playnite 10, Desktop mode, Theme API 2.10.0
 - English only
 - Designed at 4K (3840x2160), 150% scaling
+
+[![Grid view: covers on black, with the selected game's details beside them](screenshots/grid.jpg)](screenshots/grid.jpg)
+
+[![Details view: the game list on the left and the page with its trailer on the right](screenshots/details.jpg)](screenshots/details.jpg)
 
 ## Install
 
@@ -92,15 +101,22 @@ Turn on **Performance mode**. Rounded covers and the glow are the two costly eff
 
 ## Building the package
 
-With Playnite's Toolbox, giving the theme folder as a full path:
-
 ```
-Toolbox.exe pack "C:\full\path\to\Laylu\theme" "C:\full\path\to\Laylu\dist"
+powershell -ExecutionPolicy Bypass -File tools\pack.ps1
 ```
 
-The path has to be absolute. Toolbox removes the folder argument from every file name, so a relative `theme` also turns `thememodifier.yaml` into `modifier.yaml` and ThemeModifier stops finding the settings.
+This runs the checks below, then packs the theme with Playnite's Toolbox into `dist`. It expects `C:\Games\Playnite\Toolbox.exe`; pass `-Toolbox` or set `PLAYNITE_TOOLBOX` for another location.
+
+The script gives Toolbox a full path, which matters: Toolbox removes its folder argument from every file name, so a relative `theme` also turns `thememodifier.yaml` into `modifier.yaml` and ThemeModifier stops finding the settings. Only files tracked by git are packaged.
 
 Toolbox leaves out every file that is identical to Playnite's default theme, so the package holds only what Laylu changes.
+
+## Working on the theme
+
+- `theme/Views/GridViewGameOverview.xaml` is generated. Edit `DetailsViewGameOverview.xaml`, then run `tools\sync-grid-page.ps1`.
+- `tools\check.ps1` checks that every XAML file is well-formed, that the generated page is up to date, and that the version agrees across `theme.yaml`, `installer.yaml` and `CHANGELOG.md`. It also runs on every push.
+- For a release, change the version in those three files together.
+- [docs/specification.md](docs/specification.md) and [docs/discovery.md](docs/discovery.md) are the original design and its decision history. Changes per release are in [CHANGELOG.md](CHANGELOG.md).
 
 ## Licence
 

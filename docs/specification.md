@@ -1,5 +1,7 @@
 # Laylu: theme specification
 
+> Historical record from before the 1.0 release. It is not kept up to date: the README describes the theme as shipped, and `CHANGELOG.md` what changed since. Known differences: ImageRotater is supported, Metadata Utilities is not, `thememodifier.yaml` exists, and this file and `discovery.md` now live in `docs\`.
+
 Version 0.1 of the specification, 2026-10-05. Decision history and evidence are in `discovery.md`; decision numbers (D-nnn) refer to it.
 
 Target: Playnite 10.62, Desktop mode, Theme API 2.10.0. Theme Id `Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239`.

@@ -1,5 +1,7 @@
 # Laylu: discovery register
 
+> Historical record from before the 1.0 release; no longer updated. Paths in it are as they were then: this file and `specification.md` now live in `docs\`.
+
 Living document for the Laylu Playnite Desktop theme. Nothing here is a requirement until its status is **Confirmed**.
 
 - Repository root: this folder (git, no commits yet)
