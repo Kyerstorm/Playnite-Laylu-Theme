@@ -1,6 +1,11 @@
 # Changelog
 
-The newest entry must match `Version` in `theme/theme.yaml`; `tools/check.ps1` enforces it.
+The newest numbered entry must match `Version` in `theme/theme.yaml`; `tools/check.ps1` enforces it.
+
+## Unreleased
+
+- Fixed the top bar disappearing for good when Reduce motion is switched on while Playnite is running. It came back only after a restart
+- Reduce motion now also covers the trailer fade: the title strip and logo dim and return without fading
 
 ## 1.0.1
 

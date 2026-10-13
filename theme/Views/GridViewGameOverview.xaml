@@ -199,6 +199,10 @@
                                     </ContentControl.Style>
                                 </ContentControl>
 
+                                <!-- Carries the "reduce motion" option for the trailer fade below -->
+                                <Border x:Name="LayluReduceMotionFlag" Width="0" Height="0" IsHitTestVisible="False"
+                                        Tag="{DynamicResource LayluReduceMotion}" />
+
                                 <!-- Glass band: title, actions and the stats strip -->
                                 <Border x:Name="HeaderBand" Grid.Row="1" Grid.ColumnSpan="3" Background="#B3000000"
                                         Tag="{DynamicResource LayluTrailerFade}">
@@ -208,9 +212,36 @@
                                     <Border.Style>
                                         <Style TargetType="Border">
                                             <Style.Triggers>
+                                                <!-- Reduce motion: same delay, the band dims and returns without fading.
+                                                     Each of the two triggers animates in its own layer and the later
+                                                     one covers the earlier, so neither may leave a value behind when
+                                                     it ends: this one removes its storyboard, the other fades back
+                                                     with FillBehavior Stop. Full opacity is then the plain value -->
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="True" />
+                                                        <Condition Binding="{Binding Tag, ElementName=LayluReduceMotionFlag}" Value="True" />
+                                                        <Condition Binding="{Binding Visibility, ElementName=LayluTrailerHero}" Value="Visible" />
+                                                        <Condition Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsVideoPlaying, FallbackValue=False}" Value="True" />
+                                                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="False" />
+                                                        <Condition Binding="{Binding IsKeyboardFocusWithin, RelativeSource={RelativeSource Self}}" Value="False" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <MultiDataTrigger.EnterActions>
+                                                        <BeginStoryboard x:Name="LayluTrailerDimInstant">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                 To="0.1" BeginTime="0:0:10" Duration="0:0:0" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </MultiDataTrigger.EnterActions>
+                                                    <MultiDataTrigger.ExitActions>
+                                                        <RemoveStoryboard BeginStoryboardName="LayluTrailerDimInstant" />
+                                                    </MultiDataTrigger.ExitActions>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="True" />
+                                                        <Condition Binding="{Binding Tag, ElementName=LayluReduceMotionFlag}" Value="False" />
                                                         <Condition Binding="{Binding Visibility, ElementName=LayluTrailerHero}" Value="Visible" />
                                                         <Condition Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsVideoPlaying, FallbackValue=False}" Value="True" />
                                                         <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="False" />
@@ -228,7 +259,7 @@
                                                         <BeginStoryboard>
                                                             <Storyboard>
                                                                 <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                                 To="1" Duration="0:0:0.2" />
+                                                                                 To="1" Duration="0:0:0.2" FillBehavior="Stop" />
                                                             </Storyboard>
                                                         </BeginStoryboard>
                                                     </MultiDataTrigger.ExitActions>

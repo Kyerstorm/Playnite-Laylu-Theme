@@ -68,7 +68,7 @@ Install the ThemeModifier extension to change these. Without it, the defaults ap
 | Colours | Surface, raised (inputs and buttons) | `#141416` |
 | Colours | Surface, panels (sidebar and top bar) | `#0B0B0C` |
 | General | Performance mode: no glow, no rounded covers, no trailer background | off |
-| General | Reduce motion: the top bar appears without sliding | off |
+| General | Reduce motion: the top bar appears without sliding, and the title strip dims without fading during the trailer | off |
 | General | Hide the top bar until the pointer reaches the top edge | on |
 | Grid | Rounded cover corners | on |
 | Grid | Play button on the hovered cover | on |
@@ -76,6 +76,8 @@ Install the ThemeModifier extension to change these. Without it, the defaults ap
 | Grid | Star on favourite covers | off |
 | Details | Use the game logo as the title when one exists | on |
 | Details | Dim the title strip and logo while the trailer plays | on |
+
+Reduce motion covers the theme's own animations. Three kinds of movement belong to something else: the crossfade between background images (Playnite: Settings → Appearance → "Animate background image transitions"), the slide of the notification panel (Playnite's own, a tenth of a second), and trailers and rotating covers (the settings of Extra Metadata Loader and ImageRotater).
 
 Three things follow Playnite's own settings instead of a theme setting: names under covers, dimming of games that are not installed, and the width of the details panel and game list.
 
@@ -115,6 +117,7 @@ Toolbox leaves out every file that is identical to Playnite's default theme, so 
 
 - `theme/Views/GridViewGameOverview.xaml` is generated. Edit `DetailsViewGameOverview.xaml`, then run `tools\sync-grid-page.ps1`.
 - `tools\check.ps1` checks that every XAML file is well-formed, that the generated page is up to date, and that the version agrees across `theme.yaml`, `installer.yaml` and `CHANGELOG.md`. It also runs on every push.
+- `tools\test-motion.ps1` replays the top bar and the trailer fade outside Playnite, with Reduce motion switched at every awkward moment. Run it after touching either: `powershell -STA -ExecutionPolicy Bypass -File tools\test-motion.ps1`.
 - For a release, change the version in those three files together.
 - [docs/specification.md](docs/specification.md) and [docs/discovery.md](docs/discovery.md) are the original design and its decision history. Changes per release are in [CHANGELOG.md](CHANGELOG.md).
 

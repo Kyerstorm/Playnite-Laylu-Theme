@@ -193,7 +193,9 @@
                     <Grid Height="50" ClipToBounds="True"
                           d:DesignWidth="1280"
                           d:DataContext="{x:Static DesignMainViewModel.DesignIntance}">
-                        <!-- Holds "bar should be open"; set by the triggers below -->
+                        <!-- Holds "bar should be open": unset, or True from the triggers below. It must stay unset here:
+                             a value given in the template makes WPF evaluate the open and close triggers
+                             before EdgeTrigger exists, and the template fails to load -->
                         <Border x:Name="Latch" Width="0" Height="0" IsHitTestVisible="False" />
                         <!-- The title strip senses the pointer. The right 400 units are left out:
                              they stay the window drag area and keep the bar shut on the way to the window buttons -->
@@ -273,42 +275,25 @@
                         <DataTrigger Binding="{Binding Tag, ElementName=PART_PanelMainItems}" Value="{StaticResource True}">
                             <Setter TargetName="Latch" Property="Tag" Value="{StaticResource True}" />
                         </DataTrigger>
-                        <!-- Reduce motion (the option rides on EdgeTrigger.Tag): same delays, no slide -->
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition SourceName="Latch" Property="Tag" Value="{StaticResource True}" />
-                                <Condition SourceName="EdgeTrigger" Property="Tag" Value="{StaticResource True}" />
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="PanelSurface"
-                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                         To="0" BeginTime="0:0:0.15" Duration="0:0:0" />
-                                        <DoubleAnimation Storyboard.TargetProperty="MinWidth"
-                                                         To="22" BeginTime="0:0:0.15" Duration="0:0:0" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.EnterActions>
-                            <MultiTrigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="PanelSurface"
-                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                         To="-50" BeginTime="0:0:0.35" Duration="0:0:0" />
-                                        <DoubleAnimation Storyboard.TargetProperty="MinWidth"
-                                                         To="0" BeginTime="0:0:0.35" Duration="0:0:0" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.ExitActions>
-                        </MultiTrigger>
+                        <!-- Opening and closing. Four triggers, one per (bar should be open) x (reduce motion),
+                             and only enter actions. WPF gives each trigger its own animation layer, and a later
+                             trigger covers an earlier one for as long as its storyboard holds a value, so:
+                               - the two "open" triggers first remove the other three storyboards, then start theirs;
+                               - the two "close" triggers are declared last and only start theirs, on top of
+                                 whichever "open" storyboard is holding the bar.
+                             Exit actions are not used: they would also run when the option is switched while
+                             the bar is open, and close it.
+                             Reduce motion rides on EdgeTrigger.Tag: same delays, no slide -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition SourceName="Latch" Property="Tag" Value="{StaticResource True}" />
                                 <Condition SourceName="EdgeTrigger" Property="Tag" Value="{StaticResource False}" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.EnterActions>
-                                <BeginStoryboard>
+                                <RemoveStoryboard BeginStoryboardName="LayluBarOpenInstant" />
+                                <RemoveStoryboard BeginStoryboardName="LayluBarClose" />
+                                <RemoveStoryboard BeginStoryboardName="LayluBarCloseInstant" />
+                                <BeginStoryboard x:Name="LayluBarOpen">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="PanelSurface"
                                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
@@ -320,8 +305,34 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </MultiTrigger.EnterActions>
-                            <MultiTrigger.ExitActions>
-                                <BeginStoryboard>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition SourceName="Latch" Property="Tag" Value="{StaticResource True}" />
+                                <Condition SourceName="EdgeTrigger" Property="Tag" Value="{StaticResource True}" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <RemoveStoryboard BeginStoryboardName="LayluBarOpen" />
+                                <RemoveStoryboard BeginStoryboardName="LayluBarClose" />
+                                <RemoveStoryboard BeginStoryboardName="LayluBarCloseInstant" />
+                                <BeginStoryboard x:Name="LayluBarOpenInstant">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PanelSurface"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                                         To="0" BeginTime="0:0:0.15" Duration="0:0:0" />
+                                        <DoubleAnimation Storyboard.TargetProperty="MinWidth"
+                                                         To="22" BeginTime="0:0:0.15" Duration="0:0:0" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition SourceName="Latch" Property="Tag" Value="{x:Null}" />
+                                <Condition SourceName="EdgeTrigger" Property="Tag" Value="{StaticResource False}" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard x:Name="LayluBarClose">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="PanelSurface"
                                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
@@ -330,7 +341,24 @@
                                                          To="0" BeginTime="0:0:0.35" Duration="0:0:0.15" />
                                     </Storyboard>
                                 </BeginStoryboard>
-                            </MultiTrigger.ExitActions>
+                            </MultiTrigger.EnterActions>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition SourceName="Latch" Property="Tag" Value="{x:Null}" />
+                                <Condition SourceName="EdgeTrigger" Property="Tag" Value="{StaticResource True}" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard x:Name="LayluBarCloseInstant">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PanelSurface"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                                         To="-50" BeginTime="0:0:0.35" Duration="0:0:0" />
+                                        <DoubleAnimation Storyboard.TargetProperty="MinWidth"
+                                                         To="0" BeginTime="0:0:0.35" Duration="0:0:0" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
