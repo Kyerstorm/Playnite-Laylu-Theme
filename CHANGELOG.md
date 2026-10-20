@@ -2,6 +2,18 @@
 
 The newest numbered entry must match `Version` in `theme/theme.yaml`; `tools/check.ps1` enforces it.
 
+## 1.1.1
+
+Released 2026-10-20.
+
+### Added
+
+- A place at the top of the game details for the Pokémon team strip from PokeTeams, an unreleased generic plugin. It shows only when PokeTeams is installed and has a team for the game, so nothing changes without it
+
+### Fixed
+
+- Playnite crashed on startup when the top bar auto-hide option was switched off, from ThemeModifier or by editing the theme. With the option off the top bar now stays open as intended
+
 ## 1.1
 
 Released 2026-10-13.

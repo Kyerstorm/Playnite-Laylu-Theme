@@ -1,5 +1,12 @@
 AddonId: Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239
 Packages:
+  - Version: 1.1.1
+    RequiredApiVersion: 2.10.0
+    ReleaseDate: 2026-10-20
+    PackageUrl: https://github.com/Kyerstorm/Playnite-Laylu-Theme/releases/download/v1.1.1/Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239_1_1_1.pthm
+    Changelog:
+      - Fixed Playnite crashing on startup when the top bar auto-hide option is switched off
+      - Game details can show the team strip from PokeTeams, an unreleased generic plugin; hidden without it
   - Version: 1.1
     RequiredApiVersion: 2.10.0
     ReleaseDate: 2026-10-13
