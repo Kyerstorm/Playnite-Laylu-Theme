@@ -610,6 +610,23 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Margin="32,0,0,0">
+                                        <!-- PokeTeams: the Pokémon team recorded for this game, first in the column so it
+                                             sits under the play bar and stays visible on every tab -->
+                                        <Border Visibility="{PluginStatus Plugin=PokeTeams_0f28cd31-128e-40d2-933a-cc5a8f12c8d2, Status=Installed}">
+                                            <ContentControl x:Name="PokeTeams_TeamStrip" Margin="0,0,0,14" Focusable="False">
+                                                <ContentControl.Style>
+                                                    <Style TargetType="ContentControl">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{PluginSettings Plugin=PokeTeams, Path=HasTeam, FallbackValue=False}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ContentControl.Style>
+                                            </ContentControl>
+                                        </Border>
+
                                         <!-- Link chips. A ListBox, not an ItemsControl, so the theme controls the item
                                              container and can draw each link as a chip -->
                                         <StackPanel Name="PART_ElemLinks" Margin="0,0,0,10">
@@ -671,33 +688,15 @@
                                         <!-- Tabs. Each extension tab is absent when its extension is missing or has nothing for the game -->
                                         <TabControl>
                                             <TabItem Header="{DynamicResource LOCOverviewLabel}">
-                                                <!-- TabItem takes one child: the description and the PokeTeams host share this panel -->
-                                                <StackPanel>
-                                                    <StackPanel Name="PART_ElemDescription" Margin="0,14,0,0">
-                                                        <HtmlTextView Name="PART_HtmlDescription"
-                                                                      HtmlFontSize="{DynamicResource FontSize}"
-                                                                      HtmlFontFamily="{DynamicResource FontFamily}"
-                                                                      HtmlForeground="{DynamicResource TextColor}"
-                                                                      LinkForeground="{DynamicResource GlyphColor}"
-                                                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                                                      pbeh:FocusBahaviors.BlockBringIntoViewRequest="True" />
-                                                    </StackPanel>
-                                                    <!-- PokeTeams: the Pokémon team recorded for this game -->
-                                                    <Border Visibility="{PluginStatus Plugin=PokeTeams_0f28cd31-128e-40d2-933a-cc5a8f12c8d2, Status=Installed}">
-                                                        <ContentControl x:Name="PokeTeams_TeamStrip" Margin="0,14,0,0" Focusable="False">
-                                                            <ContentControl.Style>
-                                                                <Style TargetType="ContentControl">
-                                                                    <Setter Property="Visibility" Value="Collapsed" />
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger Binding="{PluginSettings Plugin=PokeTeams, Path=HasTeam, FallbackValue=False}" Value="True">
-                                                                            <Setter Property="Visibility" Value="Visible" />
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </ContentControl.Style>
-                                                        </ContentControl>
-                                                    </Border>
+                                                <StackPanel Name="PART_ElemDescription" Margin="0,14,0,0">
+                                                    <HtmlTextView Name="PART_HtmlDescription"
+                                                                  HtmlFontSize="{DynamicResource FontSize}"
+                                                                  HtmlFontFamily="{DynamicResource FontFamily}"
+                                                                  HtmlForeground="{DynamicResource TextColor}"
+                                                                  LinkForeground="{DynamicResource GlyphColor}"
+                                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                                  pbeh:FocusBahaviors.BlockBringIntoViewRequest="True" />
                                                 </StackPanel>
                                             </TabItem>
                                             <!-- Notes: Playnite's own notes field and the PlayNotes extension's notes.
