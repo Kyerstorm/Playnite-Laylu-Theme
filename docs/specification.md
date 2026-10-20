@@ -129,6 +129,7 @@ Every row is **Not yet verified** against the installed version until it is buil
 | CheckDlc 1.4.1 | DLC tab | `HasData`, list controls | `playnite-checkdlc-plugin` | Reference: three themes |
 | Game Relations 1.10 | Related tab | Four controls and their `...ControlSettings.IsVisible` | `GameRelations_a4c15d63-9ab4-4d96-9a0c-8f9b35d43a1f` | Reference: Apocrypha, Harmony |
 | PlayNotes 1.10 | Notes tab | Notes control, `IsControlVisible` | `PlayNotes_4208657d-4f78-42d2-968f-39f24de275e1` | Reference: Apocrypha, Harmony |
+| PokeTeams 1.0 | Overview tab | Team strip, `HasTeam` | `PokeTeams_0f28cd31-128e-40d2-933a-cc5a8f12c8d2` | Own extension |
 | PlayerActivities, Playnite Sounds Mod, ImageRotater | none in first release | | | Deferred (P3) |
 | Theme Options | none | | | Rejected |
 | SuccessStory, ScreenshotsVisualizer, DuplicateHider, BackgroundChanger, Library Management, SystemChecker, CheckLocalizations | none in first release | | | Not installed; cannot be tested |

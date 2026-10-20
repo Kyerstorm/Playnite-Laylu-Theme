@@ -52,6 +52,7 @@ All optional. Each part appears only when its extension is installed and has som
 | CheckDlc | DLC tab |
 | Game Relations | Related tab |
 | PlayNotes | Notes, in the Notes tab |
+| PokeTeams | Your Pokémon team for the game, under the description |
 | ImageRotater | Rotating covers on the grid and the details page; rotating background on the game page |
 
 The height of the article in the News tab is set in News Viewer's own settings ("Maximum height of news notes").
