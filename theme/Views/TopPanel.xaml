@@ -256,9 +256,11 @@
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <!-- Option off: bar pinned open, title bar drag behaviour as in the default theme -->
+                        <!-- Option off: bar pinned open, title bar drag behaviour as in the default theme.
+                             The collapsed EdgeTrigger is what pins the bar (see LayluBarPinned below). This must not
+                             set Latch: this trigger already holds when the template loads, and a value on Latch then
+                             crashes Playnite on startup (see the note on Latch) -->
                         <Trigger Property="Tag" Value="{StaticResource False}">
-                            <Setter TargetName="Latch" Property="Tag" Value="{StaticResource True}" />
                             <Setter TargetName="EdgeTrigger" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <!-- Option on: the whole bar must receive the pointer, or it would close over empty space -->
@@ -290,6 +292,7 @@
                                 <Condition SourceName="EdgeTrigger" Property="Tag" Value="{StaticResource False}" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.EnterActions>
+                                <RemoveStoryboard BeginStoryboardName="LayluBarPinned" />
                                 <RemoveStoryboard BeginStoryboardName="LayluBarOpenInstant" />
                                 <RemoveStoryboard BeginStoryboardName="LayluBarClose" />
                                 <RemoveStoryboard BeginStoryboardName="LayluBarCloseInstant" />
@@ -312,6 +315,7 @@
                                 <Condition SourceName="EdgeTrigger" Property="Tag" Value="{StaticResource True}" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.EnterActions>
+                                <RemoveStoryboard BeginStoryboardName="LayluBarPinned" />
                                 <RemoveStoryboard BeginStoryboardName="LayluBarOpen" />
                                 <RemoveStoryboard BeginStoryboardName="LayluBarClose" />
                                 <RemoveStoryboard BeginStoryboardName="LayluBarCloseInstant" />
@@ -326,9 +330,30 @@
                                 </BeginStoryboard>
                             </MultiTrigger.EnterActions>
                         </MultiTrigger>
+                        <!-- Option off: hold the bar open with no delay. Declared before the "close" triggers, which
+                             cannot fire while EdgeTrigger is collapsed, so when the option is turned back on the
+                             first close covers this storyboard and the open triggers remove it -->
+                        <Trigger SourceName="EdgeTrigger" Property="Visibility" Value="Collapsed">
+                            <Trigger.EnterActions>
+                                <RemoveStoryboard BeginStoryboardName="LayluBarOpen" />
+                                <RemoveStoryboard BeginStoryboardName="LayluBarOpenInstant" />
+                                <RemoveStoryboard BeginStoryboardName="LayluBarClose" />
+                                <RemoveStoryboard BeginStoryboardName="LayluBarCloseInstant" />
+                                <BeginStoryboard x:Name="LayluBarPinned">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PanelSurface"
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                                         To="0" Duration="0:0:0" />
+                                        <DoubleAnimation Storyboard.TargetProperty="MinWidth"
+                                                         To="22" Duration="0:0:0" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition SourceName="Latch" Property="Tag" Value="{x:Null}" />
+                                <Condition SourceName="EdgeTrigger" Property="Visibility" Value="Visible" />
                                 <Condition SourceName="EdgeTrigger" Property="Tag" Value="{StaticResource False}" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.EnterActions>
@@ -346,6 +371,7 @@
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition SourceName="Latch" Property="Tag" Value="{x:Null}" />
+                                <Condition SourceName="EdgeTrigger" Property="Visibility" Value="Visible" />
                                 <Condition SourceName="EdgeTrigger" Property="Tag" Value="{StaticResource True}" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.EnterActions>
