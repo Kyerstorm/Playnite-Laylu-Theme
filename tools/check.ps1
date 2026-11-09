@@ -34,6 +34,18 @@ foreach ($file in $xamlFiles) {
 }
 Write-Host ("{0,3} XAML files parsed" -f $xamlFiles.Count)
 
+# 1b. WPF accepts only DynamicResource, StaticResource and Binding in a Setter value. Playnite's
+# own markup extensions (PluginStatus, PluginSettings, Settings) throw there, and the failure
+# takes the whole theme down at load: "'PluginStatus' is not valid for Setter.Value". Cases like
+# that belong in a DataTrigger, with the extension used as a Binding.
+foreach ($file in $xamlFiles) {
+    $text = [IO.File]::ReadAllText($file.FullName)
+    foreach ($match in [regex]::Matches($text, '<Setter[^>]*Value="\{(PluginStatus|PluginSettings|Settings|ThemeOptions)\b')) {
+        $line = ($text.Substring(0, $match.Index) -split "`n").Count
+        $problems.Add("$($file.FullName.Substring($root.Length + 1)): line $($line) puts $($match.Groups[1].Value) in a Setter value. WPF allows only DynamicResource, StaticResource and Binding there; use a DataTrigger instead.")
+    }
+}
+
 # 2. The generated grid page. Line endings are ignored: they depend on the checkout.
 $gridPage = Join-Path $theme 'Views\GridViewGameOverview.xaml'
 $before = [IO.File]::ReadAllBytes($gridPage)
