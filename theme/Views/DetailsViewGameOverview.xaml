@@ -266,10 +266,11 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Border.Style>
-                                    <!-- A WrapPanel: the stats sit beside the title and actions when there is room,
-                                         and drop onto their own line when there is not -->
-                                    <WrapPanel HorizontalAlignment="Center" Margin="32,18,32,18"
-                                               Width="{Binding ActualWidth, ElementName=LayluBodyGrid}">
+                                    <!-- Two rows: the title and its actions wrap among themselves on the first,
+                                         and the stats strip keeps a line of its own underneath -->
+                                    <StackPanel HorizontalAlignment="Center" Margin="32,18,32,18"
+                                                Width="{Binding ActualWidth, ElementName=LayluBodyGrid}">
+                                    <WrapPanel HorizontalAlignment="Center">
 
                                         <StackPanel VerticalAlignment="Center">
                                             <!-- Text title. Hidden when Extra Metadata Loader shows a logo for this game -->
@@ -359,6 +360,19 @@
                                                     <ContentControl x:Name="ThemeExtras_UserRating" Margin="14,0,0,0"
                                                                     VerticalAlignment="Center" Focusable="False" />
                                                 </StackPanel>
+                                                <!-- Version switcher (DuplicateHider): one chip per copy of the game,
+                                                     for libraries that hold the same title on several stores. Clicking a
+                                                     chip selects that copy, double-clicking launches it. DuplicateHider
+                                                     fills this element and copies the style its Tag names onto its own
+                                                     control, so the chips are drawn from LayluDuplicateHiderSwitch in
+                                                     Common.xaml. DuplicateHider only marks it visible for a game it has
+                                                     more than one copy of, and the guard hides it without the extension.
+                                                     The Grid view panel uses DuplicateHider_ContentControl1: DuplicateHider
+                                                     offers ten numbered slots so two placements never collide -->
+                                                <ContentControl x:Name="DuplicateHider_ContentControl"
+                                                                Margin="14,0,0,0" VerticalAlignment="Center" Focusable="False"
+                                                                Tag="{DynamicResource LayluDuplicateHiderSwitch}"
+                                                                Visibility="{PluginStatus Plugin=felixkmh_DuplicateHider_Plugin, Status=Installed}" />
                                                 <Button x:Name="PART_ButtonEditGame"
                                                         Margin="10,0,0,0" Height="40" Focusable="False"
                                                         Content="&#xeded;" FontFamily="{DynamicResource FontIcoFont}">
@@ -376,9 +390,12 @@
                                             </StackPanel>
                                         </StackPanel>
 
-                                        <!-- Stats strip. Playnite hides each PART_Elem cell the game has no value for -->
-                                        <StackPanel Orientation="Horizontal"
-                                                    VerticalAlignment="Center" Margin="10,8,0,8">
+                                        <!-- Stats strip. Playnite hides each PART_Elem cell the game has no value for.
+                                             A WrapPanel, because the strip holds up to ten cells once extensions are
+                                             installed: they drop onto a second line on a narrow window instead of
+                                             being clipped by the page edge -->
+                                        <WrapPanel HorizontalAlignment="Left"
+                                                   VerticalAlignment="Center" Margin="10,8,0,8">
                                             <StackPanel Name="PART_ElemPlayTime" Margin="14,0,14,0">
                                                 <TextBlock Name="PART_TextPlayTime" Style="{StaticResource LayluStatValue}"
                                                            FontSize="{DynamicResource FontSizeLarger}" />
@@ -454,6 +471,53 @@
                                                 </StackPanel>
                                                 <TextBlock Text="Achievements" Style="{StaticResource LayluStatCaption}" />
                                             </StackPanel>
+                                            <!-- Age rating: Playnite's own age ratings for this game, as text, in the
+                                                 strip's type. Deliberately not Library Management's badge: that draws a
+                                                 coloured square with a number in it, and for a game whose rating it
+                                                 cannot map it falls back to a black "?" on a transparent square, which
+                                                 is invisible on this theme's black page. No artwork here either, since
+                                                 PEGI, ESRB and USK marks are trademarked and used under their owners'
+                                                 terms. Hidden when the game has no ratings -->
+                                            <StackPanel Margin="14,0,14,0">
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Game.AgeRatings.Count}" Value="0">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Game.AgeRatings}" Value="{x:Null}">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <TextBlock Style="{StaticResource LayluStatValue}"
+                                                           FontSize="{DynamicResource FontSizeLarge}" MaxWidth="190"
+                                                           Text="{Binding Game.AgeRatings, Converter={StaticResource ListToStringConverter}}" />
+                                                <TextBlock Text="Age rating" Style="{StaticResource LayluStatCaption}" />
+                                            </StackPanel>
+                                            <!-- Feature icons (Library Management): one square icon per feature the game
+                                                 has. Height is what those icons take their size from, so only the
+                                                 height is set here. Waits for the extension's HasData, which it sets
+                                                 when it found features for the game -->
+                                            <StackPanel Margin="14,0,14,0">
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{PluginSettings Plugin=LibraryManagement, Path=HasData, FallbackValue=False}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <ContentControl x:Name="LibraryManagement_PluginFeaturesIconList"
+                                                                Height="22" HorizontalAlignment="Center" Focusable="False" />
+                                                <TextBlock Text="Features" Style="{StaticResource LayluStatCaption}" />
+                                            </StackPanel>
+                                            <!-- System Checker is deliberately not hosted. Its element draws one
+                                                 glyph from a font resource named CommonFont that the plugin uses but
+                                                 never defines, so the cell rendered and the glyph did not. -->
                                             <!-- Players online right now (Universal Steam Player Count); the extension draws the number -->
                                             <StackPanel Margin="14,0,14,0">
                                                 <StackPanel.Style>
@@ -490,8 +554,9 @@
                                                 </ContentControl>
                                                 <TextBlock Text="Playing Now" Style="{StaticResource LayluStatCaption}" />
                                             </StackPanel>
-                                        </StackPanel>
+                                        </WrapPanel>
                                     </WrapPanel>
+                                    </StackPanel>
                                 </Border>
 
                                 <!-- Body: cover and fields on the left, links and tabs on the right -->
@@ -688,8 +753,22 @@
                                         <!-- Tabs. Each extension tab is absent when its extension is missing or has nothing for the game -->
                                         <TabControl>
                                             <TabItem Header="{DynamicResource LOCOverviewLabel}">
-                                                <StackPanel Name="PART_ElemDescription" Margin="0,14,0,0">
-                                                    <HtmlTextView Name="PART_HtmlDescription"
+                                                <!-- PlayGif (animated descriptions) injects its WebView2 renderer
+                                                     next to PART_HtmlDescription, into the nearest Panel and the same
+                                                     cell, and collapses PART_HtmlDescription while it is there. So this
+                                                     has to be a Grid: a StackPanel would stack the renderer under the
+                                                     description instead of over it. PART_ScrollViewHost above scrolls
+                                                     it, and PlayGif clips the renderer to that ScrollViewer.
+                                                     Deliberately no PlayGif_AnimatedDescription slot. Playnite fills a
+                                                     custom element by name and there is one copy of this page per view
+                                                     (this file and the generated GridViewGameOverview.xaml), so the
+                                                     host landed in the other copy and both descriptions rendered at
+                                                     once. Without a slot PlayGif hides this element itself, whichever
+                                                     page it is in. PlayGif finds the two same-named descriptions and
+                                                     picks the one under the active view, so leaving it to PlayGif works
+                                                     for both pages -->
+                                                <Grid x:Name="PART_ElemDescription" Margin="0,14,0,0">
+                                                    <HtmlTextView x:Name="PART_HtmlDescription"
                                                                   HtmlFontSize="{DynamicResource FontSize}"
                                                                   HtmlFontFamily="{DynamicResource FontFamily}"
                                                                   HtmlForeground="{DynamicResource TextColor}"
@@ -697,7 +776,7 @@
                                                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                                   pbeh:FocusBahaviors.BlockBringIntoViewRequest="True" />
-                                                </StackPanel>
+                                                </Grid>
                                             </TabItem>
                                             <!-- Notes: Playnite's own notes field and the PlayNotes extension's notes.
                                                  The tab shows when either has something for this game -->
@@ -734,6 +813,25 @@
                                                             </Style>
                                                         </ContentControl.Style>
                                                     </ContentControl>
+                                                </StackPanel>
+                                            </TabItem>
+                                            <!-- Languages: the languages the game is localized in (Check Localizations).
+                                                 The extension draws a table with its own column headers, so it gets a tab
+                                                 rather than a row in the page. Its setting decides whether it fills the
+                                                 list at all, and the trigger keys off that -->
+                                            <TabItem Header="Languages">
+                                                <TabItem.Style>
+                                                    <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{PluginSettings Plugin=CheckLocalizations, Path=EnableIntegrationListLanguages, FallbackValue=False}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TabItem.Style>
+                                                <StackPanel Margin="0,14,0,0">
+                                                    <ContentControl x:Name="CheckLocalizations_PluginListLanguages" />
                                                 </StackPanel>
                                             </TabItem>
                                             <!-- Media: screenshots (Screenshot Utilities) and trailer (Extra Metadata Loader).

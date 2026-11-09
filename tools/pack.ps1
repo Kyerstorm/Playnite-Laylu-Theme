@@ -11,7 +11,7 @@
 # and ThemeModifier stops finding the settings. That is what went wrong in 1.0.
 
 param(
-    [string]$Toolbox = $(if ($env:PLAYNITE_TOOLBOX) { $env:PLAYNITE_TOOLBOX } else { 'C:\Games\Playnite\Toolbox.exe' }),
+    [string]$Toolbox,
     [string]$OutDir
 )
 
@@ -19,6 +19,26 @@ $ErrorActionPreference = 'Stop'
 
 $root = Split-Path $PSScriptRoot -Parent
 if (-not $OutDir) { $OutDir = Join-Path $root 'dist' }
+
+# Playnite runs from wherever it was unpacked, so there is no one place to look. Try, in order:
+# -Toolbox, PLAYNITE_TOOLBOX, then the usual install and portable locations.
+if (-not $Toolbox) {
+    $candidates = New-Object Collections.Generic.List[string]
+    if ($env:PLAYNITE_TOOLBOX) { $candidates.Add($env:PLAYNITE_TOOLBOX) }
+    foreach ($folder in 'C:\Games\Playnite',
+                        (Join-Path $env:USERPROFILE 'Playnite'),
+                        (Join-Path $env:LOCALAPPDATA 'Playnite'),
+                        (Join-Path $env:ProgramFiles 'Playnite'),
+                        (Join-Path ${env:ProgramFiles(x86)} 'Playnite')) {
+        $candidates.Add((Join-Path $folder 'Toolbox.exe'))
+    }
+    $Toolbox = $candidates | Where-Object { $_ -and (Test-Path -LiteralPath $_) } | Select-Object -First 1
+    if (-not $Toolbox) {
+        throw ("Toolbox.exe not found. Looked in:`n  " + ($candidates -join "`n  ") +
+               "`nPass -Toolbox 'C:\path\to\Playnite\Toolbox.exe' or set PLAYNITE_TOOLBOX.")
+    }
+    Write-Host "Toolbox: $Toolbox"
+}
 
 if (-not (Test-Path -LiteralPath $Toolbox)) {
     throw "Toolbox.exe not found at $Toolbox. Pass -Toolbox or set PLAYNITE_TOOLBOX."

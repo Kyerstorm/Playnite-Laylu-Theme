@@ -2,6 +2,27 @@
 
 The newest numbered entry must match `Version` in `theme/theme.yaml`; `tools/check.ps1` enforces it.
 
+## 1.2
+
+Released 2026-11-08.
+
+### Added
+
+- Animated descriptions from PlayGif. The game description sits in a Grid inside the page's ScrollViewer, which is where PlayGif places its renderer, and PlayGif hides the plain description while its own is showing, so only one is ever on screen
+- A chip per copy of a game from DuplicateHider, beside the Play button. Clicking a chip selects that copy, double-clicking launches it, and a copy that is not installed is drawn back. The chips use the theme's tone steps: nothing at rest, the hover tone under the pointer, the selected tone for the copy on screen
+- An age rating in the stats strip, from Playnite's own age ratings
+- Feature icons from Library Management in the stats strip, in the dark or white set chosen in that extension's settings
+- A Languages tab for Check Localizations, listing the languages the game is localized in
+
+### Changed
+
+- The stats strip keeps a line of its own under the title and actions, and wraps onto a second line instead of being clipped as it grew
+
+### Fixed
+
+- `tools\check.ps1` now rejects Playnite markup extensions such as `PluginStatus` inside a `Setter` value, where WPF accepts only `DynamicResource`, `StaticResource` and `Binding`. One of those took the whole theme down at load
+- `tools\pack.ps1` looks for `Toolbox.exe` next to a portable Playnite (`%USERPROFILE%\Playnite` and the usual install folders) instead of assuming `C:\Games\Playnite`
+
 ## 1.1.1
 
 Released 2026-10-20.
