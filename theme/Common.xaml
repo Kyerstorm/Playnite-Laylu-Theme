@@ -92,7 +92,11 @@
          DuplicateHider_ContentControl element and copies this style onto its own control, so
          this template is what the user sees: one chip per copy of the game. It hands over a
          Games collection (Game, IsCurrent, Icon, SourceName, SelectCommand, LaunchCommand)
-         and MoreThanOneCopy. Clicking a chip selects that copy, double-clicking launches it -->
+         and MoreThanOneCopy. Clicking a chip selects that copy, double-clicking launches it.
+         The chips are store icons only, because the details panel in Grid view is narrow: the
+         store name is the tooltip instead. They separate with tone steps, not boxes, so a chip
+         shows nothing at rest, the hover tone under the pointer and the selected tone on the
+         copy on screen, with copies that are not installed drawn back -->
     <Style x:Key="LayluDuplicateHiderSwitch" TargetType="ContentControl">
         <Setter Property="Template">
             <Setter.Value>
@@ -107,41 +111,40 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Command="{Binding SelectCommand}" ToolTip="{Binding SourceName}"
-                                        Cursor="Hand" Focusable="False" Margin="0,0,6,0">
+                                        Cursor="Hand" Focusable="False" Margin="0,0,4,0">
                                     <Button.InputBindings>
                                         <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LaunchCommand}" />
                                     </Button.InputBindings>
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
-                                            <!-- Dimmed when the copy is not installed, filled for the copy on
-                                                 screen. A Border style, because the data context reaches it -->
-                                            <Border x:Name="Chip" Padding="7,4,9,4"
+                                            <!-- A copy that is not installed is drawn back, so the ones you could
+                                                 switch to stay the brightest. Tone steps, not boxes: nothing at
+                                                 rest, the hover tone under the pointer, the selected tone on the
+                                                 copy on screen. A Border style, because the data context reaches it -->
+                                            <Border x:Name="Chip" Padding="7,5"
                                                     CornerRadius="{DynamicResource ControlCornerRadius}">
                                                 <Border.Style>
                                                     <Style TargetType="Border">
-                                                        <Setter Property="Background" Value="{DynamicResource HoverBrush}" />
-                                                        <Setter Property="Opacity" Value="0.55" />
+                                                        <Setter Property="Background" Value="Transparent" />
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Game.IsInstalled}" Value="True">
-                                                                <Setter Property="Opacity" Value="1" />
+                                                            <DataTrigger Binding="{Binding Game.IsInstalled}" Value="False">
+                                                                <Setter Property="Opacity" Value="0.5" />
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding IsCurrent}" Value="True">
-                                                                <Setter Property="Opacity" Value="1" />
                                                                 <Setter Property="Background" Value="{DynamicResource NormalBrush}" />
                                                             </DataTrigger>
                                                             <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="{DynamicResource NormalBrush}" />
+                                                                <Setter Property="Background" Value="{DynamicResource HoverBrush}" />
                                                             </Trigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image Source="{Binding Icon}" Width="16" Height="16"
-                                                           Margin="0,0,6,0" VerticalAlignment="Center"
-                                                           RenderOptions.BitmapScalingMode="Fant" />
-                                                    <TextBlock Text="{Binding SourceName}" VerticalAlignment="Center"
-                                                               Style="{StaticResource BaseTextBlockStyle}" />
-                                                </StackPanel>
+                                                <!-- The store icon alone: the details panel in Grid view is narrow,
+                                                     and a row of store names did not fit there. The name is the
+                                                     tooltip, so nothing is lost -->
+                                                <Image Source="{Binding Icon}" Width="16" Height="16"
+                                                       VerticalAlignment="Center"
+                                                       RenderOptions.BitmapScalingMode="Fant" />
                                             </Border>
                                         </ControlTemplate>
                                     </Button.Template>
