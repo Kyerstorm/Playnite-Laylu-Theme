@@ -38,7 +38,7 @@ The theme works with no extensions installed. Everything that depends on an exte
 All optional. Each part appears only when its extension is installed and has something for the selected game.
 
 | Extension | Adds |
-|---|---|
+| --- | --- |
 | ThemeModifier | The settings below |
 | Extra Metadata Loader | Trailer as the details page background; game logo as the title |
 | ThemeExtras | Favourite, completion status and rating on the page; site icons on links |
@@ -54,6 +54,8 @@ All optional. Each part appears only when its extension is installed and has som
 | PlayNotes | Notes, in the Notes tab |
 | PokeTeams | Your Pokémon team for the game, under the description |
 | ImageRotater | Rotating covers on the grid and the details page; rotating background on the game page |
+| DuplicateHider | A chip per copy of a game held on several stores, beside the Play button: click to switch copy, double-click to launch |
+| PlayGif | Animated images in the game description. The description sits in a Grid inside the page's ScrollViewer, which is the structure PlayGif injects into; without PlayGif the description is Playnite's own |
 
 The height of the article in the News tab is set in News Viewer's own settings ("Maximum height of news notes").
 
@@ -62,7 +64,7 @@ The height of the article in the News tab is set in News Viewer's own settings (
 Install the ThemeModifier extension to change these. Without it, the defaults apply.
 
 | Group | Setting | Default |
-|---|---|---|
+| --- | --- | --- |
 | Colours | Accent | `#E8E4DC` |
 | Colours | Text | `#E8E4DC` |
 | Colours | Text, muted | `#9A968E` |
@@ -85,7 +87,7 @@ Three things follow Playnite's own settings instead of a theme setting: names un
 ## Palette
 
 | Role | Colour |
-|---|---|
+| --- | --- |
 | Base (window, grid) | `#000000` |
 | Surface 1 (sidebar, top bar, panels) | `#0B0B0C` |
 | Surface 2 (inputs, buttons, missing covers) | `#141416` |
@@ -103,7 +105,7 @@ Three things follow Playnite's own settings instead of a theme setting: names un
 Laylu has no hue of its own by default: the accent is the text colour. For a coloured accent, set **Colours → Accent** in ThemeModifier to one of these, or to any colour you like.
 
 | Preset | Accent |
-|---|---|
+| --- | --- |
 | Default | `#E8E4DC` |
 | Ember | `#E0A040` |
 | Aurora | `#3CC8C0` |
@@ -117,11 +119,11 @@ Turn on **Performance mode**. Rounded covers and the glow are the two costly eff
 
 ## Building the package
 
-```
+```powershell
 powershell -ExecutionPolicy Bypass -File tools\pack.ps1
 ```
 
-This runs the checks below, then packs the theme with Playnite's Toolbox into `dist`. It expects `C:\Games\Playnite\Toolbox.exe`; pass `-Toolbox` or set `PLAYNITE_TOOLBOX` for another location.
+This runs the checks below, then packs the theme with Playnite's Toolbox into `dist`. It looks for `Toolbox.exe` next to your Playnite: pass `-Toolbox 'C:\path\to\Playnite\Toolbox.exe'`, set `PLAYNITE_TOOLBOX`, or let it try `C:\Games\Playnite`, `%USERPROFILE%\Playnite`, `%LOCALAPPDATA%\Playnite` and the Program Files folders.
 
 The script gives Toolbox a full path, which matters: Toolbox removes its folder argument from every file name, so a relative `theme` also turns `thememodifier.yaml` into `modifier.yaml` and ThemeModifier stops finding the settings. Only files tracked by git are packaged.
 

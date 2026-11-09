@@ -88,4 +88,69 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
+    <!-- Version switcher (DuplicateHider). DuplicateHider fills the theme's
+         DuplicateHider_ContentControl element and copies this style onto its own control, so
+         this template is what the user sees: one chip per copy of the game. It hands over a
+         Games collection (Game, IsCurrent, Icon, SourceName, SelectCommand, LaunchCommand)
+         and MoreThanOneCopy. Clicking a chip selects that copy, double-clicking launches it -->
+    <Style x:Key="LayluDuplicateHiderSwitch" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <ItemsControl ItemsSource="{Binding Games}" Focusable="False"
+                                  Visibility="{Binding MoreThanOneCopy, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding SelectCommand}" ToolTip="{Binding SourceName}"
+                                        Cursor="Hand" Focusable="False" Margin="0,0,6,0">
+                                    <Button.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LaunchCommand}" />
+                                    </Button.InputBindings>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <!-- Dimmed when the copy is not installed, filled for the copy on
+                                                 screen. A Border style, because the data context reaches it -->
+                                            <Border x:Name="Chip" Padding="7,4,9,4"
+                                                    CornerRadius="{DynamicResource ControlCornerRadius}">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="Background" Value="{DynamicResource HoverBrush}" />
+                                                        <Setter Property="Opacity" Value="0.55" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Game.IsInstalled}" Value="True">
+                                                                <Setter Property="Opacity" Value="1" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                                                <Setter Property="Opacity" Value="1" />
+                                                                <Setter Property="Background" Value="{DynamicResource NormalBrush}" />
+                                                            </DataTrigger>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="{DynamicResource NormalBrush}" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="{Binding Icon}" Width="16" Height="16"
+                                                           Margin="0,0,6,0" VerticalAlignment="Center"
+                                                           RenderOptions.BitmapScalingMode="Fant" />
+                                                    <TextBlock Text="{Binding SourceName}" VerticalAlignment="Center"
+                                                               Style="{StaticResource BaseTextBlockStyle}" />
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

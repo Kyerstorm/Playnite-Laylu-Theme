@@ -359,6 +359,19 @@
                                                     <ContentControl x:Name="ThemeExtras_UserRating" Margin="14,0,0,0"
                                                                     VerticalAlignment="Center" Focusable="False" />
                                                 </StackPanel>
+                                                <!-- Version switcher (DuplicateHider): one chip per copy of the game,
+                                                     for libraries that hold the same title on several stores. Clicking a
+                                                     chip selects that copy, double-clicking launches it. DuplicateHider
+                                                     fills this element and copies the style its Tag names onto its own
+                                                     control, so the chips are drawn from LayluDuplicateHiderSwitch in
+                                                     Common.xaml. DuplicateHider only marks it visible for a game it has
+                                                     more than one copy of, and the guard hides it without the extension.
+                                                     The Grid view panel uses DuplicateHider_ContentControl1: DuplicateHider
+                                                     offers ten numbered slots so two placements never collide -->
+                                                <ContentControl x:Name="DuplicateHider_ContentControl"
+                                                                Margin="14,0,0,0" VerticalAlignment="Center" Focusable="False"
+                                                                Tag="{DynamicResource LayluDuplicateHiderSwitch}"
+                                                                Visibility="{PluginStatus Plugin=felixkmh_DuplicateHider_Plugin, Status=Installed}" />
                                                 <Button x:Name="PART_ButtonEditGame"
                                                         Margin="10,0,0,0" Height="40" Focusable="False"
                                                         Content="&#xeded;" FontFamily="{DynamicResource FontIcoFont}">
@@ -688,8 +701,22 @@
                                         <!-- Tabs. Each extension tab is absent when its extension is missing or has nothing for the game -->
                                         <TabControl>
                                             <TabItem Header="{DynamicResource LOCOverviewLabel}">
-                                                <StackPanel Name="PART_ElemDescription" Margin="0,14,0,0">
-                                                    <HtmlTextView Name="PART_HtmlDescription"
+                                                <!-- PlayGif (animated descriptions) injects its WebView2 renderer
+                                                     next to PART_HtmlDescription, into the nearest Panel and the same
+                                                     cell, and collapses PART_HtmlDescription while it is there. So this
+                                                     has to be a Grid: a StackPanel would stack the renderer under the
+                                                     description instead of over it. PART_ScrollViewHost above scrolls
+                                                     it, and PlayGif clips the renderer to that ScrollViewer.
+                                                     Deliberately no PlayGif_AnimatedDescription slot. Playnite fills a
+                                                     custom element by name and there is one copy of this page per view
+                                                     (this file and the generated GridViewGameOverview.xaml), so the
+                                                     host landed in the other copy and both descriptions rendered at
+                                                     once. Without a slot PlayGif hides this element itself, whichever
+                                                     page it is in. PlayGif finds the two same-named descriptions and
+                                                     picks the one under the active view, so leaving it to PlayGif works
+                                                     for both pages -->
+                                                <Grid x:Name="PART_ElemDescription" Margin="0,14,0,0">
+                                                    <HtmlTextView x:Name="PART_HtmlDescription"
                                                                   HtmlFontSize="{DynamicResource FontSize}"
                                                                   HtmlFontFamily="{DynamicResource FontFamily}"
                                                                   HtmlForeground="{DynamicResource TextColor}"
@@ -697,7 +724,7 @@
                                                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                                   pbeh:FocusBahaviors.BlockBringIntoViewRequest="True" />
-                                                </StackPanel>
+                                                </Grid>
                                             </TabItem>
                                             <!-- Notes: Playnite's own notes field and the PlayNotes extension's notes.
                                                  The tab shows when either has something for this game -->
