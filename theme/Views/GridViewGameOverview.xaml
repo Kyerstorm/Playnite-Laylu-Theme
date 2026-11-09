@@ -395,7 +395,7 @@
                                              A WrapPanel, because the strip holds up to ten cells once extensions are
                                              installed: they drop onto a second line on a narrow window instead of
                                              being clipped by the page edge -->
-                                        <WrapPanel HorizontalAlignment="Center"
+                                        <WrapPanel HorizontalAlignment="Left"
                                                    VerticalAlignment="Center" Margin="10,8,0,8">
                                             <StackPanel Name="PART_ElemPlayTime" Margin="14,0,14,0">
                                                 <TextBlock Name="PART_TextPlayTime" Style="{StaticResource LayluStatValue}"
