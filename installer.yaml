@@ -1,5 +1,17 @@
 AddonId: Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239
 Packages:
+  - Version: 1.2
+    RequiredApiVersion: 2.10.0
+    ReleaseDate: 2026-11-08
+    PackageUrl: https://github.com/Kyerstorm/Playnite-Laylu-Theme/releases/download/v1.2/Laylu_8766de46-0b2f-4c87-9538-b591f5c6a239_1_2.pthm
+    Changelog:
+      - Animated descriptions from PlayGif: the description now sits where PlayGif can place its renderer
+      - A chip per copy of a game from DuplicateHider beside Play; click to switch copy, double-click to launch
+      - Age rating, from Playnite's own ratings, in the stats strip
+      - Feature icons from Library Management in the stats strip
+      - A Languages tab for Check Localizations
+      - The stats strip keeps a line of its own and wraps instead of being clipped
+      - tools\pack.ps1 finds Toolbox.exe next to a portable Playnite
   - Version: 1.1.1
     RequiredApiVersion: 2.10.0
     ReleaseDate: 2026-10-20

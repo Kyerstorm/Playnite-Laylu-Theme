@@ -23,6 +23,10 @@ Description: |-
     - Game Relations
     - PlayNotes
     - ImageRotater
+    - PlayGif (animated descriptions)
+    - DuplicateHider (switch between the copies of a game)
+    - Check Localizations (languages tab)
+    - Library Management (feature icons)
 Name: Laylu
 Author: Kyerstorm
 Tags: ["Theme", "Desktop", "Dark", "UI", "Cinematic", "OLED", "Grid View", "Details View", "trailers", "thememodifier", "extrametadataloader", "themeextras", "howlongtobeat", "gameactivity"]

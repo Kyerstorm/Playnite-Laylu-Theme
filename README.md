@@ -55,6 +55,8 @@ All optional. Each part appears only when its extension is installed and has som
 | PokeTeams | Your Pokémon team for the game, under the description |
 | ImageRotater | Rotating covers on the grid and the details page; rotating background on the game page |
 | DuplicateHider | A chip per copy of a game held on several stores, beside the Play button: click to switch copy, double-click to launch |
+| Check Localizations | A Languages tab listing the languages the game is localized in |
+| Library Management | Feature icons in the stats strip |
 | PlayGif | Animated images in the game description. The description sits in a Grid inside the page's ScrollViewer, which is the structure PlayGif injects into; without PlayGif the description is Playnite's own |
 
 The height of the article in the News tab is set in News Viewer's own settings ("Maximum height of news notes").
